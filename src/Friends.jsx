@@ -27,7 +27,7 @@ const Friends = () => {
       Swal.fire({
         icon: "success",
         title:
-          "<h3 style='color:#fff'>" +
+          "<h3 style='color:#e7e7e7'>" +
           "Succesfully added a new friend.. 😁" +
           "</h3>",
         showConfirmButton: false,
@@ -53,6 +53,15 @@ const Friends = () => {
         const remainingFriends = friends.filter((item) => item !== friend);
         setFriends(remainingFriends);
         setDisplayFriends(remainingFriends);
+        Swal.fire({
+          icon: "success",
+          title:
+            "<h3 style='color:#e7e7e7'>" + "Succesfully removed..😁" + "</h3>",
+          showConfirmButton: false,
+          timer: 1500,
+          padding: "1rem",
+          background: "#3c4a49",
+        });
       }
     });
   };
