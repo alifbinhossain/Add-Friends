@@ -91,13 +91,13 @@ const Friends = () => {
     <div className="friends">
       <h1>Add New Friends</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="enter your friend name" {...register("name")} />
+        <input placeholder="enter your friend's name" {...register("name")} />
         <input className="btn-add" type="submit" value="Add" />
       </form>
 
       <input
         type="text"
-        placeholder="search your friend name"
+        placeholder="search your friend's name"
         className="input-search"
         onChange={handleSearch}
       />
