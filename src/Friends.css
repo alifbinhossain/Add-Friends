@@ -21,3 +21,7 @@
   margin: 10px 0;
   border: none;
 }
+
+.pagination .selected {
+  background-color: blueviolet;
+}

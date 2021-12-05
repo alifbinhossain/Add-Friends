@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Friend from "./Friend";
 import Swal from "sweetalert2";
@@ -7,8 +7,9 @@ import "./Friends.css";
 const Friends = () => {
   const [friends, setFriends] = useState([]);
   const [displayFriends, setDisplayFriends] = useState(friends);
-  // const [pageCount, setPageCount] = useState(0);
+  // const [pageCount, setPageCount] = useState(1);
   // const [currentPage, setCurrentPage] = useState(0);
+  // const [totalPages, setTotalPages] = useState();
   // const size = 4;
   const {
     reset,
@@ -20,7 +21,9 @@ const Friends = () => {
   //button add friends functionality
   const onSubmit = (data) => {
     if (data.name) {
-      const newFriend = data.name;
+      const priority = "low";
+      const name = data.name;
+      const newFriend = { name, priority };
       const allFriends = [...friends, newFriend];
       setFriends(allFriends);
       setDisplayFriends(allFriends);
@@ -28,14 +31,16 @@ const Friends = () => {
         icon: "success",
         title:
           "<h3 style='color:#e7e7e7'>" +
-          "Succesfully added a new friend.. 😁" +
+          "Successfully added a new friend.. 😁" +
           "</h3>",
         showConfirmButton: false,
         timer: 1500,
         padding: "1rem 2rem",
         background: "#3c4a49",
       });
+      // setPageCount(Math.ceil(displayFriends.length / 4));
     }
+
     reset();
   };
 
@@ -67,13 +72,17 @@ const Friends = () => {
   };
   //button sorting functionality
   const handleStar = (friend) => {
-    const remainingsFriends = friends.filter((item) => item !== friend);
-    const newSortedFriends = [friend, ...remainingsFriends];
+    friend.priority = "top";
+    const remainingFriends = friends.filter(
+      (item) => item.name !== friend.name
+    );
+    const newSortedFriends = [friend, ...remainingFriends];
     setFriends(newSortedFriends);
     setDisplayFriends(newSortedFriends);
   };
+
+  //handle pagination buttons
   // const handlePagination = (number) => {
-  //   friends.length = 0;
   //   setCurrentPage(number);
   // };
 
@@ -81,7 +90,7 @@ const Friends = () => {
   const handleSearch = (e) => {
     const searchText = e.target.value;
     const results = friends.filter((friend) =>
-      friend.toLowerCase().includes(searchText.toLowerCase())
+      friend.name.toLowerCase().includes(searchText.toLowerCase())
     );
 
     setFriends(results);
@@ -113,12 +122,12 @@ const Friends = () => {
       </ul>
 
       {/* <div className="pagination">
-        {[...Array(pageCount).keys()].map((n) => (
+        {[...Array(Math.ceil(pageCount)).keys()].map((number) => (
           <button
-            className={n === currentPage ? "selected" : ""}
-            onClick={() => handlePagination(n)}
+            className={number === currentPage ? "selected" : ""}
+            onClick={() => handlePagination(number)}
           >
-            {n + 1}
+            {number + 1}
           </button>
         ))}
       </div> */}
